@@ -7,7 +7,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, run:
 
 ```bash
-ng serve
+ng serve or npm run dev
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -51,6 +51,13 @@ For end-to-end (e2e) testing, run:
 ```bash
 ng e2e
 ```
+
+## LOGIN
+
+To access the dashboard, you can use the following credentials:
+
+- Username: admin@example.com
+- Password: 123456
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 

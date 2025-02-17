@@ -1,0 +1,101 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl w-full space-y-8">
+    <!-- Search Bar -->
+    <div class="mb-6">
+      <input
+        type="text"
+        class="block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        placeholder="Search by product name..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+      />
+    </div>
+
+    <!-- Table -->
+    <table class="min-w-full table-auto">
+      <thead>
+      <tr class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-100">
+        <th class="px-4 py-2 text-left">Name</th>
+        <th class="px-4 py-2 text-left">Price</th>
+        <th class="px-4 py-2 text-left">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of filteredProducts">
+        <td class="px-4 py-2">{{ product.title }}</td>
+        <td class="px-4 py-2">{{ product.price | currency }}</td>
+        <td class="px-4 py-2 flex space-x-2">
+          <button (click)="showUpdateProductModal(product)" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Update</button>
+          <button (click)="onDelete(product.id)" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <!-- Add Product Button -->
+    <button
+      (click)="openAddProductModal()"
+      class="mt-4 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+    >
+      Add Product
+    </button>
+
+    <!-- Add Product Modal -->
+    <div *ngIf="showAddProductModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+      <div class="bg-white rounded-lg p-6 w-1/3">
+        <h2 class="text-xl font-semibold mb-4">Add Product</h2>
+        <form (ngSubmit)="onAddProduct()">
+          <div class="mb-4">
+            <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
+            <input type="text" id="productName" [(ngModel)]="newProduct.title" name="name" required class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          <div class="mb-4">
+            <label for="productPrice" class="block text-sm font-medium text-gray-700">Price</label>
+            <input type="number" id="productPrice" [(ngModel)]="newProduct.price" name="price" required class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          <div class="mb-4">
+            <label for="productDescription" class="block text-sm font-medium text-gray-700">Description</label>
+            <input type="text" id="productDescription" [(ngModel)]="newProduct.description" name="description" required class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          <div class="mb-4">
+            <label for="productImages" class="block text-sm font-medium text-gray-700">Image</label>
+            <input type="text" id="productImages" [(ngModel)]="newProduct.images" name="description" required class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          <div class="flex justify-between">
+            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Add</button>
+            <button (click)="closeAddProductModal()" type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Update Product Modal -->
+    <div *ngIf="showEditProductModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+      <div class="bg-white rounded-lg p-6 w-1/3">
+        <h2 class="text-xl font-semibold mb-4">Update Product</h2>
+        <form (ngSubmit)="onUpdate()">
+          <div class="mb-4">
+            <label for="updateProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
+            <input type="text" id="updateProductName" [(ngModel)]="newProduct.title" name="title" required class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          <div class="mb-4">
+            <label for="updateProductPrice" class="block text-sm font-medium text-gray-700">Price</label>
+            <input type="number" id="updateProductPrice" [(ngModel)]="newProduct.price" name="price" required class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          <div class="mb-4">
+            <label for="updateProductDescription" class="block text-sm font-medium text-gray-700">Description</label>
+            <input type="text" id="updateProductDescription" [(ngModel)]="newProduct.description" name="description" required class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          <div class="mb-4">
+            <label for="updateProductImages" class="block text-sm font-medium text-gray-700">Image</label>
+            <input type="text" id="updateProductImages" [(ngModel)]="newProduct.images[0]" name="images" required class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          </div>
+          <div class="flex justify-between">
+            <button (click)="onUpdate()" type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Update</button>
+            <button (click)="closeUpdateProductModal()" type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

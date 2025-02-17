@@ -1,0 +1,27 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+
+  <form (ngSubmit)="reverseText()">
+    <div>
+      <label for="textInput" class="block text-sm font-medium text-gray-700">Enter Text</label>
+      <input
+        type="text"
+        id="textInput"
+        [(ngModel)]="inputText"
+        name="textInput"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+        required
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
+    >
+      Reverse Text
+    </button>
+  </form>
+
+  <div *ngIf="reversedText" class="mt-4 p-2 bg-gray-100 rounded-md">
+    <strong>Reversed Text:</strong> {{ reversedText }}
+  </div>
+</div>
